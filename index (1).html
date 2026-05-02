@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ege Evren — Industrial Designer</title>
+  <meta name="description" content="Ege Evren — Industrial Designer based in Istanbul." />
+  <meta name="author" content="Ege Evren" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #fafaf8;
+      --black: #0e0e0d;
+      --grey: #888882;
+      --light: #e8e8e4;
+      --accent: #c8b89a;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: var(--font-display);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 4rem;
+      background: var(--white);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+
+    nav.scrolled { border-color: var(--light); }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      color: var(--black);
+      cursor: pointer;
+    }
+
+    .nav-links { display: flex; gap: 3rem; list-style: none; }
+
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--grey);
+      transition: color 0.3s;
+      cursor: pointer;
+    }
+
+    .nav-links a:hover { color: var(--black); }
+
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 4rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-line { position: absolute; top: 0; right: 8rem; width: 1px; height: 100%; background: var(--light); }
+
+    .hero-index {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--grey);
+      letter-spacing: 0.15em;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.3s;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 10vw, 9rem);
+      font-weight: 300;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      opacity: 0;
+      animation: fadeUp 1.2s ease forwards 0.5s;
+    }
+
+    h1 em { font-style: italic; font-weight: 300; }
+
+    .hero-sub {
+      margin-top: 2.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--grey);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      max-width: 340px;
+      line-height: 1.8;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.9s;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 3rem; right: 4rem;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--grey);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 1.5s;
+    }
+
+    .scroll-hint::before {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 60px;
+      background: var(--accent);
+      animation: growLine 1.5s ease forwards 2s;
+      transform-origin: top;
+      transform: scaleY(0);
+    }
+
+    section { padding: 8rem 4rem; }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--grey);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 4rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .section-label::after { content: ''; display: block; height: 1px; width: 60px; background: var(--light); }
+
+    #about { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+
+    .about-text { font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 300; line-height: 1.5; max-width: 520px; }
+    .about-text em { font-style: italic; color: var(--grey); }
+    .about-right { padding-top: 6rem; }
+    .about-details { display: flex; flex-direction: column; gap: 2rem; }
+    .detail-item { border-top: 1px solid var(--light); padding-top: 1.5rem; }
+    .detail-label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--grey); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .detail-value { font-size: 1rem; font-weight: 400; }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--light);
+      border: 1px solid var(--light);
+    }
+
+    .project-card {
+      background: var(--white);
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s;
+      cursor: pointer;
+    }
+
+    .project-card:hover { background: var(--black); }
+
+    .project-card:hover .project-title,
+    .project-card:hover .project-year,
+    .project-card:hover .project-desc { color: var(--white); }
+
+    .project-card:hover .project-tag { border-color: #333; color: var(--grey); }
+
+    .project-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; margin-bottom: 2rem; filter: grayscale(20%); transition: filter 0.4s; }
+    .project-card:hover .project-img { filter: grayscale(0%) brightness(0.85); }
+
+    .project-img-placeholder {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--light);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--grey);
+      letter-spacing: 0.1em;
+      transition: background 0.4s;
+    }
+
+    .project-card:hover .project-img-placeholder { background: #1a1a1a; }
+
+    .project-meta { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+    .project-title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 400; transition: color 0.4s; }
+    .project-year { font-family: var(--font-mono); font-size: 0.65rem; color: var(--grey); letter-spacing: 0.1em; transition: color 0.4s; }
+    .project-desc { font-size: 0.95rem; color: var(--grey); line-height: 1.6; margin-bottom: 1.5rem; transition: color 0.4s; }
+    .project-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .project-tag { font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; border: 1px solid var(--light); padding: 0.3rem 0.7rem; color: var(--grey); transition: border-color 0.4s, color 0.4s; }
+
+    #contact { min-height: 60vh; display: flex; flex-direction: column; justify-content: center; border-top: 1px solid var(--light); }
+
+    .contact-heading { font-family: var(--font-display); font-size: clamp(3rem, 7vw, 6.5rem); font-weight: 300; line-height: 1; letter-spacing: -0.02em; margin-bottom: 3rem; }
+    .contact-heading em { font-style: italic; }
+    .contact-links { display: flex; gap: 4rem; flex-wrap: wrap; }
+    .contact-link { display: flex; flex-direction: column; gap: 0.4rem; text-decoration: none; }
+    .contact-link-label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--grey); letter-spacing: 0.15em; text-transform: uppercase; }
+    .contact-link-value { font-size: 1.1rem; color: var(--black); border-bottom: 1px solid var(--light); padding-bottom: 0.3rem; transition: border-color 0.3s; }
+    .contact-link:hover .contact-link-value { border-color: var(--black); }
+
+    footer { padding: 2rem 4rem; border-top: 1px solid var(--light); display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-family: var(--font-mono); font-size: 0.6rem; color: var(--grey); letter-spacing: 0.1em; }
+
+    /* PROJECT DETAIL */
+    #page-project { padding-top: 8rem; }
+
+    .project-detail-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--grey);
+      cursor: pointer;
+      padding: 0 4rem 3rem;
+      transition: color 0.3s;
+      border: none;
+      background: none;
+    }
+
+    .project-detail-back:hover { color: var(--black); }
+    .project-detail-back::before { content: '←'; font-size: 0.9rem; }
+
+    .project-detail-header {
+      padding: 0 4rem 4rem;
+      border-bottom: 1px solid var(--light);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 4rem;
+    }
+
+    .project-detail-number { font-family: var(--font-mono); font-size: 0.65rem; color: var(--grey); letter-spacing: 0.2em; margin-bottom: 1.5rem; }
+
+    .project-detail-title { font-family: var(--font-display); font-size: clamp(3rem, 7vw, 6rem); font-weight: 300; line-height: 0.95; letter-spacing: -0.02em; }
+    .project-detail-title em { font-style: italic; }
+
+    .project-detail-meta { display: flex; flex-direction: column; gap: 1.5rem; min-width: 180px; }
+    .project-detail-meta .detail-item { border-top: 1px solid var(--light); padding-top: 1rem; }
+    .project-detail-meta .detail-label { font-family: var(--font-mono); font-size: 0.55rem; color: var(--grey); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.3rem; }
+    .project-detail-meta .detail-value { font-size: 0.9rem; }
+
+    .project-detail-hero-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+
+    .project-detail-hero-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--grey);
+      letter-spacing: 0.1em;
+    }
+
+    .project-detail-body { padding: 6rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8rem; align-items: start; }
+
+    .project-detail-desc { font-size: clamp(1.2rem, 2vw, 1.6rem); font-weight: 300; line-height: 1.6; }
+    .project-detail-desc p + p { margin-top: 1.5rem; }
+
+    .project-detail-gallery { display: flex; flex-direction: column; gap: 1px; background: var(--light); }
+
+    .project-detail-gallery-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+
+    .project-detail-gallery-placeholder {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--grey);
+      letter-spacing: 0.1em;
+    }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes growLine { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.9s ease, transform 0.9s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      nav { padding: 1.5rem 2rem; }
+      .nav-links { gap: 1.5rem; }
+      #hero { padding: 0 2rem 4rem; }
+      section { padding: 5rem 2rem; }
+      #about { grid-template-columns: 1fr; gap: 3rem; }
+      .about-right { padding-top: 0; }
+      .projects-grid { grid-template-columns: 1fr; }
+      footer { padding: 1.5rem 2rem; flex-direction: column; gap: 1rem; text-align: center; }
+      .project-detail-header { grid-template-columns: 1fr; padding: 0 2rem 3rem; }
+      .project-detail-body { grid-template-columns: 1fr; padding: 4rem 2rem; gap: 3rem; }
+      .project-detail-back { padding: 0 2rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="main-nav">
+    <span class="nav-logo" onclick="showHome()">Ege Evren</span>
+    <ul class="nav-links">
+      <li><a onclick="showHome(); scrollToSection('about')">About</a></li>
+      <li><a onclick="showHome(); scrollToSection('projects')">Work</a></li>
+      <li><a onclick="showHome(); scrollToSection('contact')">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HOME -->
+  <div id="page-home" class="page active">
+
+    <section id="hero">
+      <div class="hero-line"></div>
+      <div class="hero-index">001 — Portfolio</div>
+      <h1>Ege<br><em>Evren</em></h1>
+      <p class="hero-sub">Industrial Designer based in Istanbul —<br>shaping the things people hold, use, and love.</p>
+      <div class="scroll-hint">Scroll</div>
+    </section>
+
+    <section id="about">
+      <div class="about-left">
+        <div class="section-label reveal">About</div>
+        <p class="about-text reveal">
+          I'm an Industrial Design student at <em>İstanbul Bilgi Üniversitesi</em>, 
+          driven by the intersection of function, material, and meaning.
+          I design objects that earn their place in the world.
+        </p>
+      </div>
+      <div class="about-right reveal">
+        <div class="about-details">
+          <div class="detail-item"><div class="detail-label">Based in</div><div class="detail-value">Istanbul, Turkey</div></div>
+          <div class="detail-item"><div class="detail-label">Education</div><div class="detail-value">İstanbul Bilgi Üniversitesi<br>Industrial Design</div></div>
+          <div class="detail-item"><div class="detail-label">Experience</div><div class="detail-value">Sestri Lifestyle</div></div>
+          <div class="detail-item"><div class="detail-label">Interests</div><div class="detail-value">Product Design · Packaging · Materials</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-label reveal">Selected Work</div>
+      <div class="projects-grid">
+        <div class="project-card reveal" onclick="showProject(0)">
+          <div class="project-img-placeholder">[ Add your image here ]</div>
+          <div class="project-meta"><div class="project-title">Project 1</div><div class="project-year">2024</div></div>
+          <p class="project-desc">A short description of the project.</p>
+          <div class="project-tags"><span class="project-tag">Product</span><span class="project-tag">Concept</span></div>
+        </div>
+        <div class="project-card reveal" onclick="showProject(1)">
+          <div class="project-img-placeholder">[ Add your image here ]</div>
+          <div class="project-meta"><div class="project-title">Project 2</div><div class="project-year">2024</div></div>
+          <p class="project-desc">A short description of the project.</p>
+          <div class="project-tags"><span class="project-tag">Packaging</span><span class="project-tag">Research</span></div>
+        </div>
+        <div class="project-card reveal" onclick="showProject(2)">
+          <div class="project-img-placeholder">[ Add your image here ]</div>
+          <div class="project-meta"><div class="project-title">Project 3</div><div class="project-year">2023</div></div>
+          <p class="project-desc">A short description of the project.</p>
+          <div class="project-tags"><span class="project-tag">Packaging</span><span class="project-tag">Patent Pending</span></div>
+        </div>
+        <div class="project-card reveal" onclick="showProject(3)">
+          <div class="project-img-placeholder">[ Add your image here ]</div>
+          <div class="project-meta"><div class="project-title">Project 4</div><div class="project-year">2023</div></div>
+          <p class="project-desc">A short description of the project.</p>
+          <div class="project-tags"><span class="project-tag">Furniture</span><span class="project-tag">Material</span></div>
+        </div>
+        <div class="project-card reveal" onclick="showProject(4)">
+          <div class="project-img-placeholder">[ Add your image here ]</div>
+          <div class="project-meta"><div class="project-title">Project 5</div><div class="project-year">2023</div></div>
+          <p class="project-desc">A short description of the project.</p>
+          <div class="project-tags"><span class="project-tag">Concept</span><span class="project-tag">Research</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-label reveal">Contact</div>
+      <h2 class="contact-heading reveal">Let's make<br><em>something.</em></h2>
+      <div class="contact-links reveal">
+        <a href="mailto:ege@egeevren.com" class="contact-link">
+          <span class="contact-link-label">Email</span>
+          <span class="contact-link-value">ege@egeevren.com</span>
+        </a>
+        <a href="https://www.linkedin.com/in/ege-evren-a75b38280" target="_blank" class="contact-link">
+          <span class="contact-link-label">LinkedIn</span>
+          <span class="contact-link-value">Ege Evren</span>
+        </a>
+        <a href="https://www.instagram.com" target="_blank" class="contact-link">
+          <span class="contact-link-label">Instagram</span>
+          <span class="contact-link-value">@egeevren</span>
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <span class="footer-copy">© 2025 Ege Evren</span>
+      <span class="footer-copy">Istanbul, Turkey</span>
+    </footer>
+
+  </div>
+
+  <!-- PROJECT DETAIL -->
+  <div id="page-project" class="page">
+    <button class="project-detail-back" onclick="showHome()">Back to Work</button>
+    <div class="project-detail-header">
+      <div>
+        <div class="project-detail-number" id="detail-number">001</div>
+        <h2 class="project-detail-title" id="detail-title">Project 1</h2>
+      </div>
+      <div class="project-detail-meta" id="detail-meta"></div>
+    </div>
+    <div id="detail-hero" class="project-detail-hero-placeholder">[ Add hero image here ]</div>
+    <div class="project-detail-body">
+      <div class="project-detail-desc" id="detail-desc"></div>
+      <div class="project-detail-gallery" id="detail-gallery"></div>
+    </div>
+  </div>
+
+  <script>
+    // ===== EDIT YOUR PROJECTS HERE =====
+    const projects = [
+      {
+        number: '001',
+        title: 'Project <em>1</em>',
+        year: '2024',
+        category: 'Product Design',
+        material: 'Add material here',
+        desc: '<p>A detailed description of Project 1. What was the brief? What problem were you solving?</p><p>Talk about your process — materials, research, prototypes, iterations.</p>',
+        coverImg: null, // e.g. 'https://pub-dafa3748d0864c9da27ff35ac5bb967b.r2.dev/project1.jpg'
+        heroImg: null,
+        galleryImgs: [null, null]
+      },
+      {
+        number: '002',
+        title: 'Project <em>2</em>',
+        year: '2024',
+        category: 'Packaging',
+        material: 'Add material here',
+        desc: '<p>A detailed description of Project 2.</p><p>Talk about your process.</p>',
+        coverImg: null,
+        heroImg: null,
+        galleryImgs: [null, null]
+      },
+      {
+        number: '003',
+        title: 'Project <em>3</em>',
+        year: '2023',
+        category: 'Packaging',
+        material: 'Add material here',
+        desc: '<p>A detailed description of Project 3.</p><p>Talk about your process.</p>',
+        coverImg: null,
+        heroImg: null,
+        galleryImgs: [null, null]
+      },
+      {
+        number: '004',
+        title: 'Project <em>4</em>',
+        year: '2023',
+        category: 'Furniture',
+        material: 'Add material here',
+        desc: '<p>A detailed description of Project 4.</p><p>Talk about your process.</p>',
+        coverImg: null,
+        heroImg: null,
+        galleryImgs: [null, null]
+      },
+      {
+        number: '005',
+        title: 'Project <em>5</em>',
+        year: '2023',
+        category: 'Concept',
+        material: 'Add material here',
+        desc: '<p>A detailed description of Project 5.</p><p>Talk about your process.</p>',
+        coverImg: null,
+        heroImg: null,
+        galleryImgs: [null, null]
+      }
+    ];
+    // ===================================
+
+    function showHome() {
+      document.getElementById('page-home').classList.add('active');
+      document.getElementById('page-project').classList.remove('active');
+      window.scrollTo(0, 0);
+      initReveal();
+    }
+
+    function showProject(index) {
+      const p = projects[index];
+      document.getElementById('page-home').classList.remove('active');
+      document.getElementById('page-project').classList.add('active');
+      window.scrollTo(0, 0);
+
+      document.getElementById('detail-number').textContent = p.number;
+      document.getElementById('detail-title').innerHTML = p.title;
+      document.getElementById('detail-desc').innerHTML = p.desc;
+
+      document.getElementById('detail-meta').innerHTML = `
+        <div class="detail-item"><div class="detail-label">Year</div><div class="detail-value">${p.year}</div></div>
+        <div class="detail-item"><div class="detail-label">Category</div><div class="detail-value">${p.category}</div></div>
+        <div class="detail-item"><div class="detail-label">Material</div><div class="detail-value">${p.material}</div></div>
+      `;
+
+      const heroEl = document.getElementById('detail-hero');
+      if (p.heroImg) {
+        heroEl.className = 'project-detail-hero-img';
+        heroEl.outerHTML = `<img src="${p.heroImg}" class="project-detail-hero-img" id="detail-hero" alt="" />`;
+      } else {
+        heroEl.className = 'project-detail-hero-placeholder';
+        heroEl.textContent = '[ Add hero image here ]';
+      }
+
+      document.getElementById('detail-gallery').innerHTML = p.galleryImgs.map(img =>
+        img
+          ? `<img src="${img}" class="project-detail-gallery-img" alt="" />`
+          : `<div class="project-detail-gallery-placeholder">[ Add image here ]</div>`
+      ).join('');
+    }
+
+    function scrollToSection(id) {
+      setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }), 50);
+    }
+
+    function initReveal() {
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        });
+      }, { threshold: 0.1 });
+      reveals.forEach(el => { el.classList.remove('visible'); observer.observe(el); });
+    }
+
+    initReveal();
+
+    window.addEventListener('scroll', () => {
+      document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+</body>
+</html>
