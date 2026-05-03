@@ -9,16 +9,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
-  
-  /* google search console */
   <meta name="google-site-verification" content="Our31b_zb9SxbJ1zUDZTcfoVWcKR6-lpi6v9Tbuv0X8" />
-
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --white: #fafaf8;
+      --white: #ffffff;
       --black: #0e0e0d;
       --grey: #888882;
       --light: #e8e8e4;
@@ -89,8 +86,6 @@
       position: relative;
       overflow: hidden;
     }
-
- 
 
     .hero-index {
       font-family: var(--font-mono);
@@ -180,39 +175,99 @@
     .detail-label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--grey); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
     .detail-value { font-size: 1rem; font-weight: 400; }
 
-    .projects-grid {
+    /* =====================================================
+       PROJECTS — Joffrey Spitzer scroll layout
+       ===================================================== */
+
+    #projects {
+      padding: 8rem 0;
+    }
+
+    #projects .section-label {
+      padding: 0 4rem;
+      margin-bottom: 5rem;
+    }
+
+    /* Each project row: label column left, image center, year right */
+    .scroll-project {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1px;
-      background: var(--light);
-      border: 1px solid var(--light);
-    }
-
-    .project-card {
-      background: var(--white);
-      padding: 3rem;
-      position: relative;
-      overflow: hidden;
-      transition: background 0.4s;
+      grid-template-columns: 280px 1fr 120px;
+      align-items: start;
+      margin-bottom: 0;
+      border-top: 1px solid var(--light);
       cursor: pointer;
+      position: relative;
     }
 
-    .project-card:hover { background: var(--light); }
+    .scroll-project:last-child {
+      border-bottom: 1px solid var(--light);
+    }
 
-    .project-card:hover .project-title,
-    .project-card:hover .project-year,
-    .project-card:hover .project-desc { color: var(--black); }
+    /* Left meta column */
+    .scroll-project-meta {
+      padding: 3rem 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      position: sticky;
+      top: 6rem;
+    }
 
-    .project-card:hover .project-tag { border-color: #333; color: var(--grey); }
+    .scroll-project-number {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--grey);
+      letter-spacing: 0.2em;
+    }
 
-    .project-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; margin-bottom: 2rem; filter: grayscale(20%); transition: filter 0.4s; }
-    .project-card:hover .project-img { filter: grayscale(0%) brightness(0.85); }
+    .scroll-project-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 400;
+      line-height: 1.2;
+      transition: color 0.3s;
+    }
 
-    .project-img-placeholder {
+    .scroll-project-title em { font-style: italic; font-weight: 300; color: var(--grey); }
+
+    .scroll-project-tags {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      margin-top: 0.5rem;
+    }
+
+    .scroll-project-tag {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--grey);
+      transition: color 0.3s;
+    }
+
+    /* Center image column */
+    .scroll-project-image {
+      display: block;
       width: 100%;
-      aspect-ratio: 4/3;
+      /* Fixed aspect ratio — all images same height */
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(10%);
+      transition: filter 0.5s, transform 0.6s ease;
+    }
+
+    .scroll-project-image-wrap {
+      overflow: hidden;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+    }
+
+    .scroll-project-placeholder {
+      width: 100%;
+      aspect-ratio: 4 / 3;
       background: var(--light);
-      margin-bottom: 2rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -223,14 +278,63 @@
       transition: background 0.4s;
     }
 
-    .project-card:hover .project-img-placeholder { background: #1a1a1a; }
+    /* Right year column */
+    .scroll-project-year {
+      padding: 3rem 4rem 3rem 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--grey);
+      letter-spacing: 0.1em;
+      text-align: right;
+      position: sticky;
+      top: 6rem;
+      transition: color 0.3s;
+    }
 
-    .project-meta { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
-    .project-title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 400; transition: color 0.4s; }
-    .project-year { font-family: var(--font-mono); font-size: 0.65rem; color: var(--grey); letter-spacing: 0.1em; transition: color 0.4s; }
-    .project-desc { font-size: 0.95rem; color: var(--grey); line-height: 1.6; margin-bottom: 1.5rem; transition: color 0.4s; }
-    .project-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-    .project-tag { font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; border: 1px solid var(--light); padding: 0.3rem 0.7rem; color: var(--grey); transition: border-color 0.4s, color 0.4s; }
+    /* Hover state */
+    .scroll-project:hover .scroll-project-image {
+      filter: grayscale(0%) brightness(0.92);
+      transform: scale(1.02);
+    }
+
+    .scroll-project:hover .scroll-project-placeholder {
+      background: #d0cfc9;
+    }
+
+    .scroll-project:hover .scroll-project-title {
+      color: var(--black);
+    }
+
+    .scroll-project:hover .scroll-project-year {
+      color: var(--black);
+    }
+
+    .scroll-project:hover .scroll-project-tag {
+      color: var(--black);
+    }
+
+    /* Arrow appear on hover */
+    .scroll-project-meta::after {
+      content: '→';
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--accent);
+      margin-top: auto;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 0.3s, transform 0.3s;
+      display: block;
+      margin-top: 1.5rem;
+    }
+
+    .scroll-project:hover .scroll-project-meta::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* =====================================================
+       CONTACT & FOOTER
+       ===================================================== */
 
     #contact { min-height: 60vh; display: flex; flex-direction: column; justify-content: center; border-top: 1px solid var(--light); }
 
@@ -245,7 +349,10 @@
     footer { padding: 2rem 4rem; border-top: 1px solid var(--light); display: flex; justify-content: space-between; align-items: center; }
     .footer-copy { font-family: var(--font-mono); font-size: 0.6rem; color: var(--grey); letter-spacing: 0.1em; }
 
-    /* PROJECT DETAIL */
+    /* =====================================================
+       PROJECT DETAIL PAGE
+       ===================================================== */
+
     #page-project { padding-top: 8rem; }
 
     .project-detail-back {
@@ -323,6 +430,10 @@
       letter-spacing: 0.1em;
     }
 
+    /* =====================================================
+       ANIMATIONS
+       ===================================================== */
+
     @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes growLine { from { transform: scaleY(0); } to { transform: scaleY(1); } }
@@ -330,14 +441,38 @@
     .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.9s ease, transform 0.9s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
+
+    @media (max-width: 900px) {
+      .scroll-project {
+        grid-template-columns: 1fr;
+      }
+      .scroll-project-meta {
+        position: static;
+        padding: 2rem 2rem 1rem;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 1rem;
+      }
+      .scroll-project-meta::after { display: none; }
+      .scroll-project-tags { flex-direction: row; }
+      .scroll-project-year {
+        display: none;
+      }
+    }
+
     @media (max-width: 768px) {
       nav { padding: 1.5rem 2rem; }
       .nav-links { gap: 1.5rem; }
       #hero { padding: 0 2rem 4rem; }
       section { padding: 5rem 2rem; }
+      #projects { padding: 5rem 0; }
+      #projects .section-label { padding: 0 2rem; }
       #about { grid-template-columns: 1fr; gap: 3rem; }
       .about-right { padding-top: 0; }
-      .projects-grid { grid-template-columns: 1fr; }
       footer { padding: 1.5rem 2rem; flex-direction: column; gap: 1rem; text-align: center; }
       .project-detail-header { grid-template-columns: 1fr; padding: 0 2rem 3rem; }
       .project-detail-body { grid-template-columns: 1fr; padding: 4rem 2rem; gap: 3rem; }
@@ -366,13 +501,12 @@
       <p class="hero-sub">Industrial Design Student based in Istanbul —<br></p>
       <div class="scroll-hint"></div>
     </section>
-  <!-- HOME -->
+
     <section id="about">
       <div class="about-left">
         <div class="section-label reveal">About</div>
         <p class="about-text reveal">
-          I'm an Industrial Design student at <em>Istanbul Bilgi University</em>, 
-          
+          I'm an Industrial Design student at <em>Istanbul Bilgi University</em>,
         </p>
       </div>
       <div class="about-right reveal">
@@ -385,41 +519,93 @@
       </div>
     </section>
 
+    <!-- =====================================================
+         PROJECTS — Scroll layout
+         ===================================================== -->
     <section id="projects">
       <div class="section-label reveal">Selected Work</div>
-      <div class="projects-grid">
-        <div class="project-card reveal" onclick="showProject(0)">
-          <div class="project-img-placeholder"><img src="https://pub-dafa3748d0864c9da27ff35ac5bb967b.r2.dev/tasulye-cover-image.jpg" alt="Cat Carrier" style="width: 100%; height: 100%; object-fit: cover;"></div>
-          <div class="project-meta"><div class="project-title">Tableware for Turkish Cousine</div><div class="project-year">2026</div></div>
-          <p class="project-desc">A short description of the project.</p>
-          <div class="project-tags"><span class="project-tag">Product</span><span class="project-tag">Concept</span></div>
+
+      <!-- Project 1 -->
+      <div class="scroll-project reveal" onclick="showProject(0)">
+        <div class="scroll-project-meta">
+          <span class="scroll-project-number">001</span>
+          <div class="scroll-project-title">Tableware for<br><em>Turkish Cousine</em></div>
+          <div class="scroll-project-tags">
+            <span class="scroll-project-tag">Product</span>
+            <span class="scroll-project-tag">Concept</span>
+          </div>
         </div>
-        <div class="project-card reveal" onclick="showProject(1)">
-          <div class="project-img-placeholder"><img src="https://pub-dafa3748d0864c9da27ff35ac5bb967b.r2.dev/straycatcarrier.jpg" alt="Tableware" style="width: 100%; height: 100%; object-fit: cover;"></div>
-          <div class="project-meta"><div class="project-title">Stray Cat Carrier</div><div class="project-year">2025</div></div>
-          <p class="project-desc">There are many stray cats in the streets of Istanbul.
-            This project solves the need for a disposable cat carrier for Injured stray cats. </p>
-          <div class="project-tags"><span class="project-tag">Corrugated Cardboard</span><span class="project-tag"></span></div>
+        <div class="scroll-project-image-wrap">
+          <img
+            src="https://pub-dafa3748d0864c9da27ff35ac5bb967b.r2.dev/tasulye-cover-image.jpg"
+            alt="Tableware for Turkish Cousine"
+            class="scroll-project-image"
+          />
         </div>
-        <div class="project-card reveal" onclick="showProject(2)">
-          <div class="project-img-placeholder">[ Add your image here ]</div>
-          <div class="project-meta"><div class="project-title">Project 3</div><div class="project-year">2023</div></div>
-          <p class="project-desc">A short description of the project.</p>
-          <div class="project-tags"><span class="project-tag">Packaging</span><span class="project-tag">Patent Pending</span></div>
-        </div>
-        <div class="project-card reveal" onclick="showProject(3)">
-          <div class="project-img-placeholder">[ Add your image here ]</div>
-          <div class="project-meta"><div class="project-title">Project 4</div><div class="project-year">2023</div></div>
-          <p class="project-desc">A short description of the project.</p>
-          <div class="project-tags"><span class="project-tag">Furniture</span><span class="project-tag">Material</span></div>
-        </div>
-        <div class="project-card reveal" onclick="showProject(4)">
-          <div class="project-img-placeholder">[ Add your image here ]</div>
-          <div class="project-meta"><div class="project-title">Project 5</div><div class="project-year">2023</div></div>
-          <p class="project-desc">A short description of the project.</p>
-          <div class="project-tags"><span class="project-tag">Concept</span><span class="project-tag">Research</span></div>
-        </div>
+        <div class="scroll-project-year">2026</div>
       </div>
+
+      <!-- Project 2 -->
+      <div class="scroll-project reveal" onclick="showProject(1)">
+        <div class="scroll-project-meta">
+          <span class="scroll-project-number">002</span>
+          <div class="scroll-project-title">Stray Cat<br><em>Carrier</em></div>
+          <div class="scroll-project-tags">
+            <span class="scroll-project-tag">Corrugated Cardboard</span>
+          </div>
+        </div>
+        <div class="scroll-project-image-wrap">
+          <img
+            src="https://pub-dafa3748d0864c9da27ff35ac5bb967b.r2.dev/straycatcarrier.jpg"
+            alt="Stray Cat Carrier"
+            class="scroll-project-image"
+          />
+        </div>
+        <div class="scroll-project-year">2025</div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="scroll-project reveal" onclick="showProject(2)">
+        <div class="scroll-project-meta">
+          <span class="scroll-project-number">003</span>
+          <div class="scroll-project-title">Project <em>3</em></div>
+          <div class="scroll-project-tags">
+            <span class="scroll-project-tag">Packaging</span>
+            <span class="scroll-project-tag">Patent Pending</span>
+          </div>
+        </div>
+        <div class="scroll-project-placeholder">[ Add your image here ]</div>
+        <div class="scroll-project-year">2023</div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="scroll-project reveal" onclick="showProject(3)">
+        <div class="scroll-project-meta">
+          <span class="scroll-project-number">004</span>
+          <div class="scroll-project-title">Project <em>4</em></div>
+          <div class="scroll-project-tags">
+            <span class="scroll-project-tag">Furniture</span>
+            <span class="scroll-project-tag">Material</span>
+          </div>
+        </div>
+        <div class="scroll-project-placeholder">[ Add your image here ]</div>
+        <div class="scroll-project-year">2023</div>
+      </div>
+
+      <!-- Project 5 -->
+      <div class="scroll-project reveal" onclick="showProject(4)">
+        <div class="scroll-project-meta">
+          <span class="scroll-project-number">005</span>
+          <div class="scroll-project-title">Project <em>5</em></div>
+          <div class="scroll-project-tags">
+            <span class="scroll-project-tag">Concept</span>
+            <span class="scroll-project-tag">Research</span>
+          </div>
+        </div>
+        <div class="scroll-project-placeholder">[ Add your image here ]</div>
+        <div class="scroll-project-year">2023</div>
+      </div>
+
     </section>
 
     <section id="contact">
@@ -430,13 +616,9 @@
           <span class="contact-link-label">Email</span>
           <span class="contact-link-value">ege@egeevren.com</span>
         </a>
-        <a href=https://www.linkedin.com/in/ege-evren/ target="_blank" class="contact-link">
+        <a href="https://www.linkedin.com/in/ege-evren/" target="_blank" class="contact-link">
           <span class="contact-link-label">LinkedIn</span>
-          <span class="contact-link-value">https://www.linkedin.com/in/ege-evren/</span>
-        </a>
-        <a href="https://www.instagram.com" target="_blank" class="contact-link">
-          <span class="contact-link-label"></span>
-          <span class="contact-link-value"></span>
+          <span class="contact-link-value">linkedin.com/in/ege-evren</span>
         </a>
       </div>
     </section>
@@ -470,23 +652,21 @@
     const projects = [
       {
         number: '001',
-        title: 'Project <em>1</em>',
-        year: '2024',
+        title: 'Tableware for Turkish <em>Cousine</em>',
+        year: '2026',
         category: 'Product Design',
-        material: 'Corrugated Cardboard',
-        desc: '<p>Design Statement: This cat carrier has a conical form that invites the cat. The box lid pushes the cat inside and locks the box. The form allows holding from different directions, keeping the cat stable and secure inside.?</p><p>Talk about your process — materials, research, prototypes, iterations.</p>',
-        coverImg: null, // e.g. 'https://pub-dafa3748d0864c9da27ff35ac5bb967b.r2.dev/project1.jpg'
+        material: 'Ceramic',
+        desc: '<p>A short description of the project.</p><p>Talk about your process — materials, research, prototypes, iterations.</p>',
         heroImg: null,
         galleryImgs: [null, null]
       },
       {
         number: '002',
-        title: 'Project <em>2</em>',
-        year: '2024',
-        category: 'Packaging',
-        material: 'Add material here',
-        desc: '<p>A detailed description of Project 2.</p><p>Talk about your process.</p>',
-        coverImg: null,
+        title: 'Stray Cat <em>Carrier</em>',
+        year: '2025',
+        category: 'Product Design',
+        material: 'Corrugated Cardboard',
+        desc: '<p>There are many stray cats in the streets of Istanbul. This project solves the need for a disposable cat carrier for injured stray cats.</p><p>Design Statement: This cat carrier has a conical form that invites the cat. The box lid pushes the cat inside and locks the box. The form allows holding from different directions, keeping the cat stable and secure inside.</p>',
         heroImg: null,
         galleryImgs: [null, null]
       },
@@ -497,7 +677,6 @@
         category: 'Packaging',
         material: 'Add material here',
         desc: '<p>A detailed description of Project 3.</p><p>Talk about your process.</p>',
-        coverImg: null,
         heroImg: null,
         galleryImgs: [null, null]
       },
@@ -508,7 +687,6 @@
         category: 'Furniture',
         material: 'Add material here',
         desc: '<p>A detailed description of Project 4.</p><p>Talk about your process.</p>',
-        coverImg: null,
         heroImg: null,
         galleryImgs: [null, null]
       },
@@ -519,7 +697,6 @@
         category: 'Concept',
         material: 'Add material here',
         desc: '<p>A detailed description of Project 5.</p><p>Talk about your process.</p>',
-        coverImg: null,
         heroImg: null,
         galleryImgs: [null, null]
       }
@@ -551,7 +728,6 @@
 
       const heroEl = document.getElementById('detail-hero');
       if (p.heroImg) {
-        heroEl.className = 'project-detail-hero-img';
         heroEl.outerHTML = `<img src="${p.heroImg}" class="project-detail-hero-img" id="detail-hero" alt="" />`;
       } else {
         heroEl.className = 'project-detail-hero-placeholder';
