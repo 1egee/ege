@@ -35,7 +35,7 @@
       --accent: #c8b89a;
     }
 
-    html { scroll-behavior: smooth; }
+    html 
 
     body {
       background: var(--white);
@@ -49,446 +49,12 @@
     .page.active { display: block; }
 
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 2rem 4rem;
-      background: var(--white);
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.3s;
+      
     }
 
-    nav.scrolled { border-color: var(--light); }
+   
 
-    .nav-logo {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      font-weight: 400;
-      letter-spacing: 0.05em;
-      text-decoration: none;
-      color: var(--black);
-      cursor: pointer;
-    }
-
-    .nav-links { display: flex; gap: 3rem; list-style: none; }
-
-    .nav-links a {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: var(--grey);
-      transition: color 0.3s;
-      cursor: pointer;
-    }
-
-    .nav-links a:hover { color: var(--black); }
-
-    #hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 0 4rem 5rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-index {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--grey);
-      letter-spacing: 0.15em;
-      margin-bottom: 2rem;
-      opacity: 0;
-      animation: fadeUp 1s ease forwards 0.3s;
-    }
-
-    h1 {
-      font-family: var(--font-display);
-      font-size: clamp(4rem, 10vw, 9rem);
-      font-weight: 300;
-      line-height: 0.95;
-      letter-spacing: -0.02em;
-      opacity: 0;
-      animation: fadeUp 1.2s ease forwards 0.5s;
-    }
-
-    h1 em { font-style: italic; font-weight: 300; }
-
-    .hero-sub {
-      margin-top: 2.5rem;
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--grey);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      max-width: 340px;
-      line-height: 1.8;
-      opacity: 0;
-      animation: fadeUp 1s ease forwards 0.9s;
-    }
-
-    .scroll-hint {
-      position: absolute;
-      bottom: 3rem; right: 4rem;
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      color: var(--grey);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      writing-mode: vertical-rl;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      opacity: 0;
-      animation: fadeIn 1s ease forwards 1.5s;
-    }
-
-    .scroll-hint::before {
-      content: '';
-      display: block;
-      width: 1px;
-      height: 60px;
-      background: var(--accent);
-      animation: growLine 1.5s ease forwards 2s;
-      transform-origin: top;
-      transform: scaleY(0);
-    }
-
-    section { padding: 8rem 4rem; }
-
-    .section-label {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--grey);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 4rem;
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    .section-label::after { content: ''; display: block; height: 1px; width: 60px; background: var(--light); }
-
-    #about { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
-
-    .about-text { font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 300; line-height: 1.5; max-width: 520px; }
-    .about-text em { font-style: italic; color: var(--grey); }
-    .about-right { padding-top: 6rem; }
-    .about-details { display: flex; flex-direction: column; gap: 2rem; }
-    .detail-item { border-top: 1px solid var(--light); padding-top: 1.5rem; }
-    .detail-label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--grey); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
-    .detail-value { font-size: 1rem; font-weight: 400; }
-
-    /* =====================================================
-      scroll layout
-       ===================================================== */
-
-    #projects {
-      padding: 8rem 0;
-    }
-
-    #projects .section-label {
-      padding: 0 4rem;
-      margin-bottom: 5rem;
-    }
-
-    /* Each project row: label column left, image center, year right */
-    .scroll-project {
-      display: grid;
-      grid-template-columns: 280px 1fr 120px;
-      align-items: start;
-      margin-bottom: 0;
-      border-top: 1px solid var(--light);
-      cursor: pointer;
-      position: relative;
-    }
-
-    .scroll-project:last-child {
-      border-bottom: 1px solid var(--light);
-    }
-
-    /* Left meta column */
-    .scroll-project-meta {
-      padding: 3rem 4rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      position: sticky;
-      top: 6rem;
-    }
-
-    .scroll-project-number {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      color: var(--grey);
-      letter-spacing: 0.2em;
-    }
-
-    .scroll-project-title {
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      font-weight: 400;
-      line-height: 1.2;
-      transition: color 0.3s;
-    }
-
-    .scroll-project-title em { font-style: italic; font-weight: 300; color: var(--grey); }
-
-    .scroll-project-tags {
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-      margin-top: 0.5rem;
-    }
-
-    .scroll-project-tag {
-      font-family: var(--font-mono);
-      font-size: 0.55rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--grey);
-      transition: color 0.3s;
-    }
-
-    /* Center image column */
-    .scroll-project-image {
-      display: block;
-      width: 100%;
-      /* Fixed aspect ratio — all images same height */
-      aspect-ratio: 4 / 3;
-      object-fit: cover;
-      display: block;
-      filter: grayscale(10%);
-      transition: filter 0.5s, transform 0.6s ease;
-    }
-
-    .scroll-project-image-wrap {
-      overflow: hidden;
-      width: 100%;
-      aspect-ratio: 4 / 3;
-    }
-
-    .scroll-project-placeholder {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      background: var(--light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      color: var(--grey);
-      letter-spacing: 0.1em;
-      transition: background 0.4s;
-    }
-
-    /* Right year column */
-    .scroll-project-year {
-      padding: 3rem 4rem 3rem 2rem;
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--grey);
-      letter-spacing: 0.1em;
-      text-align: right;
-      position: sticky;
-      top: 6rem;
-      transition: color 0.3s;
-    }
-
-    /* Hover state */
-    .scroll-project:hover .scroll-project-image {
-      filter: grayscale(0%) brightness(0.92);
-      transform: scale(1.02);
-    }
-
-    .scroll-project:hover .scroll-project-placeholder {
-      background: #d0cfc9;
-    }
-
-    .scroll-project:hover .scroll-project-title {
-      color: var(--black);
-    }
-
-    .scroll-project:hover .scroll-project-year {
-      color: var(--black);
-    }
-
-    .scroll-project:hover .scroll-project-tag {
-      color: var(--black);
-    }
-
-    /* Arrow appear on hover */
-    .scroll-project-meta::after {
-      content: '→';
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      color: var(--accent);
-      margin-top: auto;
-      opacity: 0;
-      transform: translateX(-8px);
-      transition: opacity 0.3s, transform 0.3s;
-      display: block;
-      margin-top: 1.5rem;
-    }
-
-    .scroll-project:hover .scroll-project-meta::after {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    /* =====================================================
-       CONTACT & FOOTER
-       ===================================================== */
-
-    #contact { min-height: 60vh; display: flex; flex-direction: column; justify-content: center; border-top: 1px solid var(--light); }
-
-    .contact-heading { font-family: var(--font-display); font-size: clamp(3rem, 7vw, 6.5rem); font-weight: 300; line-height: 1; letter-spacing: -0.02em; margin-bottom: 3rem; }
-    .contact-heading em { font-style: italic; }
-    .contact-links { display: flex; gap: 4rem; flex-wrap: wrap; }
-    .contact-link { display: flex; flex-direction: column; gap: 0.4rem; text-decoration: none; }
-    .contact-link-label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--grey); letter-spacing: 0.15em; text-transform: uppercase; }
-    .contact-link-value { font-size: 1.1rem; color: var(--black); border-bottom: 1px solid var(--light); padding-bottom: 0.3rem; transition: border-color 0.3s; }
-    .contact-link:hover .contact-link-value { border-color: var(--black); }
-
-    footer { padding: 2rem 4rem; border-top: 1px solid var(--light); display: flex; justify-content: space-between; align-items: center; }
-    .footer-copy { font-family: var(--font-mono); font-size: 0.6rem; color: var(--grey); letter-spacing: 0.1em; }
-
-    /* =====================================================
-       PROJECT DETAIL PAGE
-       ===================================================== */
-
-    #page-project { padding-top: 8rem; }
-
-    .project-detail-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.8rem;
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--grey);
-      cursor: pointer;
-      padding: 0 4rem 3rem;
-      transition: color 0.3s;
-      border: none;
-      background: none;
-    }
-
-    .project-detail-back:hover { color: var(--black); }
-    .project-detail-back::before { content: '←'; font-size: 0.9rem; }
-
-    .project-detail-header {
-      padding: 0 4rem 4rem;
-      border-bottom: 1px solid var(--light);
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: end;
-      gap: 4rem;
-    }
-
-    .project-detail-number { font-family: var(--font-mono); font-size: 0.65rem; color: var(--grey); letter-spacing: 0.2em; margin-bottom: 1.5rem; }
-
-    .project-detail-title { font-family: var(--font-display); font-size: clamp(3rem, 7vw, 6rem); font-weight: 300; line-height: 0.95; letter-spacing: -0.02em; }
-    .project-detail-title em { font-style: italic; }
-
-    .project-detail-meta { display: flex; flex-direction: column; gap: 1.5rem; min-width: 180px; }
-    .project-detail-meta .detail-item { border-top: 1px solid var(--light); padding-top: 1rem; }
-    .project-detail-meta .detail-label { font-family: var(--font-mono); font-size: 0.55rem; color: var(--grey); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.3rem; }
-    .project-detail-meta .detail-value { font-size: 0.9rem; }
-
-    .project-detail-hero-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
-
-    .project-detail-hero-placeholder {
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: var(--light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--grey);
-      letter-spacing: 0.1em;
-    }
-
-    .project-detail-body { padding: 6rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8rem; align-items: start; }
-
-    .project-detail-desc { font-size: clamp(1.2rem, 2vw, 1.6rem); font-weight: 300; line-height: 1.6; }
-    .project-detail-desc p + p { margin-top: 1.5rem; }
-
-    .project-detail-gallery { display: flex; flex-direction: column; gap: 1px; background: var(--light); }
-
-    .project-detail-gallery-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
-
-    .project-detail-gallery-placeholder {
-      width: 100%;
-      aspect-ratio: 4/3;
-      background: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      color: var(--grey);
-      letter-spacing: 0.1em;
-    }
-
-    /* =====================================================
-       ANIMATIONS
-       ===================================================== */
-
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes growLine { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-
-    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.9s ease, transform 0.9s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    /* =====================================================
-       RESPONSIVE
-       ===================================================== */
-
-    @media (max-width: 900px) {
-      .scroll-project {
-        grid-template-columns: 1fr;
-      }
-      .scroll-project-meta {
-        position: static;
-        padding: 2rem 2rem 1rem;
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: baseline;
-        gap: 1rem;
-      }
-      .scroll-project-meta::after { display: none; }
-      .scroll-project-tags { flex-direction: row; }
-      .scroll-project-year {
-        display: none;
-      }
-    }
-
-    @media (max-width: 768px) {
-      nav { padding: 1.5rem 2rem; }
-      .nav-links { gap: 1.5rem; }
-      #hero { padding: 0 2rem 4rem; }
-      section { padding: 5rem 2rem; }
-      #projects { padding: 5rem 0; }
-      #projects .section-label { padding: 0 2rem; }
-      #about { grid-template-columns: 1fr; gap: 3rem; }
-      .about-right { padding-top: 0; }
-      footer { padding: 1.5rem 2rem; flex-direction: column; gap: 1rem; text-align: center; }
-      .project-detail-header { grid-template-columns: 1fr; padding: 0 2rem 3rem; }
-      .project-detail-body { grid-template-columns: 1fr; padding: 4rem 2rem; gap: 3rem; }
-      .project-detail-back { padding: 0 2rem 2rem; }
-    }
+   
   </style>
 </head>
 <body>
@@ -556,72 +122,12 @@
         <div class="scroll-project-year">2026</div>
       </div>
 
-      <!-- Project 2 -->
-      <div class="scroll-project reveal" onclick="showProject(1)">
-        <div class="scroll-project-meta">
-          <span class="scroll-project-number">002</span>
-          <div class="scroll-project-title">Stray Cat<br><em>Carrier</em></div>
-          <div class="scroll-project-tags">
-            <span class="scroll-project-tag">Corrugated Cardboard</span>
-          </div>
-        </div>
-        <div class="scroll-project-image-wrap">
-          <img
-            src="https://pub-dafa3748d0864c9da27ff35ac5bb967b.r2.dev/straycatcarrier.jpg"
-            alt="Stray Cat Carrier"
-            class="scroll-project-image"
-          />
-        </div>
-        <div class="scroll-project-year">2025</div>
-      </div>
-
-      <!-- Project 3 -->
-      <div class="scroll-project reveal" onclick="showProject(2)">
-        <div class="scroll-project-meta">
-          <span class="scroll-project-number">003</span>
-          <div class="scroll-project-title">Project <em>3</em></div>
-          <div class="scroll-project-tags">
-            <span class="scroll-project-tag">Packaging</span>
-            <span class="scroll-project-tag">Patent Pending</span>
-          </div>
-        </div>
-        <div class="scroll-project-placeholder">[ Add your image here ]</div>
-        <div class="scroll-project-year">2023</div>
-      </div>
-
-      <!-- Project 4 -->
-      <div class="scroll-project reveal" onclick="showProject(3)">
-        <div class="scroll-project-meta">
-          <span class="scroll-project-number">004</span>
-          <div class="scroll-project-title">Project <em>4</em></div>
-          <div class="scroll-project-tags">
-            <span class="scroll-project-tag">Furniture</span>
-            <span class="scroll-project-tag">Material</span>
-          </div>
-        </div>
-        <div class="scroll-project-placeholder">[ Add your image here ]</div>
-        <div class="scroll-project-year">2023</div>
-      </div>
-
-      <!-- Project 5 -->
-      <div class="scroll-project reveal" onclick="showProject(4)">
-        <div class="scroll-project-meta">
-          <span class="scroll-project-number">005</span>
-          <div class="scroll-project-title">Project <em>5</em></div>
-          <div class="scroll-project-tags">
-            <span class="scroll-project-tag">Concept</span>
-            <span class="scroll-project-tag">Research</span>
-          </div>
-        </div>
-        <div class="scroll-project-placeholder">[ Add your image here ]</div>
-        <div class="scroll-project-year">2023</div>
-      </div>
-
+      
     </section>
 
     <section id="contact">
       <div class="section-label reveal">Contact</div>
-      <h2 class="contact-heading reveal">Let's make<br><em>something.</em></h2>
+      <h2 class="contact-heading reveal"><br><em></em></h2>
       <div class="contact-links reveal">
         <a href="mailto:ege@egeevren.com" class="contact-link">
           <span class="contact-link-label">Email</span>
@@ -642,7 +148,7 @@
   </div>
 
   <!-- PROJECT DETAIL -->
-  <div id="page-project" class="page">
+  <!--<div id="page-project" class="page">
     <button class="project-detail-back" onclick="showHome()">Back to Work</button>
     <div class="project-detail-header">
       <div>
@@ -656,9 +162,9 @@
       <div class="project-detail-desc" id="detail-desc"></div>
       <div class="project-detail-gallery" id="detail-gallery"></div>
     </div>
-  </div>
+  </div>-->
 
-  <script>
+  <!--<script>
     // ===== EDIT YOUR PROJECTS HERE =====
     const projects = [
       {
@@ -771,6 +277,6 @@
     window.addEventListener('scroll', () => {
       document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 50);
     });
-  </script>
+  </script>-->
 </body>
 </html>
