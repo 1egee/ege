@@ -1,280 +1,179 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ege Evren — Industrial Design Portfolio</title>
-  <meta name="description" content="Ege Evren — Industrial Design Student based in Istanbul." />
-  <meta name="author" content="Ege Evren" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  
-  <meta name="google-site-verification" content="Our31b_zb9SxbJ1zUDZTcfoVWcKR6-lpi6v9Tbuv0X8" />
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400&family=Jost:wght@300;400&display=swap" rel="stylesheet">
-  
-  
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-
-
-
-    :root {
-
-    --display: 'Bebas Neue', sans-serif;
-    --body: 'Jost', sans-serif;
-    --mono: 'DM Mono', monospace;
-    .hero-title { font-family: var(--display); }
-    .nav-name   { font-family: var(--display); }
-    .about-text { font-family: var(--body); }
-    .nav-links  { font-family: var(--mono); }
-      --white: #ffffff;
-      --black: #0e0e0d;
-      --grey: #888882;
-      --light: #e8e8e4;
-      --accent: #c8b89a;
-    }
-
-    html 
-
-    body {
-      background: var(--white);
-      color: var(--black);
-      font-family: var(--font-display);
-      font-weight: 300;
-      line-height: 1.6;
-    }
-
-    .page { display: none; }
-    .page.active { display: block; }
-
-
-
-   
-
-   
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sipariş takibi – Ege Evren 3D Baskı</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* Matches egeevren.com: Bebas Neue / Jost / DM Mono, same palette */
+  :root{
+    --display:'Bebas Neue',sans-serif; --body:'Jost',sans-serif; --mono:'DM Mono',monospace;
+    --white:#ffffff; --black:#0e0e0d; --grey:#888882; --light:#e8e8e4; --accent:#c8b89a;
+    --ok:#4f7a5a; --due:#a8462f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--white);color:var(--black);font-family:var(--body);font-weight:300;line-height:1.6}
+ 
+  nav{display:flex;justify-content:space-between;align-items:center;padding:28px clamp(20px,5vw,64px);border-bottom:1px solid var(--light)}
+  .nav-logo{font-family:var(--display);font-size:1.6rem;letter-spacing:.02em;color:var(--black);text-decoration:none}
+  .nav-links{display:flex;gap:28px;list-style:none;font-family:var(--mono);font-size:.8rem}
+  .nav-links a{color:var(--grey);text-decoration:none}
+  .nav-links a:hover,.nav-links a[aria-current]{color:var(--black)}
+ 
+  main{max-width:760px;margin:0 auto;padding:clamp(40px,8vw,96px) clamp(20px,5vw,40px) 80px}
+  .kicker{font-family:var(--mono);font-size:.8rem;color:var(--grey);margin-bottom:12px}
+  h1{font-family:var(--display);font-weight:400;font-size:clamp(4rem,14vw,8.5rem);line-height:.86;letter-spacing:.01em;
+     background:repeating-linear-gradient(180deg,var(--black) 0 4px,transparent 4px 6px);
+     -webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:24px}
+  .lede{color:var(--grey);max-width:48ch;margin-bottom:40px;font-size:1.05rem}
+ 
+  form{display:flex;gap:0;flex-wrap:wrap;margin-bottom:48px;border:1px solid var(--black)}
+  label{position:absolute;left:-9999px}
+  input{flex:1 1 220px;font-family:var(--mono);font-size:1.15rem;letter-spacing:.08em;text-transform:uppercase;
+        padding:18px 20px;border:0;background:var(--white);color:var(--black)}
+  input::placeholder{text-transform:none;letter-spacing:.02em;color:var(--grey)}
+  button{font-family:var(--mono);font-size:.9rem;padding:18px 28px;border:0;background:var(--black);color:var(--white);cursor:pointer}
+  button:hover{background:#2a2a28}
+  input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  button[disabled]{opacity:.6;cursor:wait}
+ 
+  .msg{padding:16px 0;border-top:1px solid var(--light);color:var(--grey)}
+  .msg.err{color:var(--due)}
+ 
+  .hello{font-family:var(--display);font-size:2.6rem;line-height:1;margin-bottom:20px;letter-spacing:.01em}
+  .totals{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border-top:1px solid var(--black);border-bottom:1px solid var(--light);margin-bottom:40px}
+  .totals div{padding:16px 0 18px}
+  .totals span{display:block;font-family:var(--mono);font-size:.75rem;color:var(--grey)}
+  .totals b{font-weight:400;font-size:1.6rem;font-variant-numeric:tabular-nums}
+  .totals .good b{color:var(--ok)} .totals .due b{color:var(--due)}
+ 
+  ol.orders{list-style:none}
+  .order{display:grid;grid-template-columns:40px 1fr auto;gap:4px 20px;align-items:center;padding:22px 0;border-top:1px solid var(--light)}
+  .order:last-child{border-bottom:1px solid var(--light)}
+  .order h2{font-weight:500;font-size:1.1rem}
+  .order .meta{grid-column:2;color:var(--grey);font-size:.92rem}
+  .order .price{grid-row:1 / span 2;grid-column:3;text-align:right;font-variant-numeric:tabular-nums}
+  .order .price b{display:block;font-weight:400;font-size:1.2rem}
+  .order .price small{font-family:var(--mono);font-size:.75rem;color:var(--grey)}
+  .order .price small.due{color:var(--due)}
+  .order .note{grid-column:2 / span 2;color:var(--grey);font-size:.85rem}
+ 
+  /* Status = four layers stacking up like a print */
+  .layers{grid-row:1 / span 2;display:flex;flex-direction:column-reverse;gap:3px;width:34px}
+  .layers i{display:block;height:5px;background:var(--light)}
+  .layers i.on{background:var(--accent)}
+  .layers.done i.on{background:var(--black)}
+  .status{font-family:var(--mono);font-size:.75rem;color:var(--grey);margin-left:10px}
+ 
+  .foot{margin-top:32px;font-family:var(--mono);font-size:.75rem;color:var(--grey)}
+  .foot a{color:var(--black)}
+  footer{display:flex;justify-content:space-between;padding:28px clamp(20px,5vw,64px);border-top:1px solid var(--light);font-family:var(--mono);font-size:.75rem;color:var(--grey)}
+ 
+  @media (max-width:520px){
+    .nav-links{gap:16px}
+    .order{grid-template-columns:34px 1fr}
+    .order .price{grid-column:2;grid-row:auto;text-align:left;display:flex;gap:10px;align-items:baseline}
+    .order .price b{display:inline}
+    .order .note{grid-column:2}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .layers i.on{animation:lay .35s ease-out both;transform-origin:left}
+    .layers i.on:nth-child(2){animation-delay:.08s}.layers i.on:nth-child(3){animation-delay:.16s}.layers i.on:nth-child(4){animation-delay:.24s}
+    @keyframes lay{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  }
+</style>
 </head>
 <body>
-
-  <nav id="main-nav">
-    <span class="nav-logo" onclick="showHome()">Ege Evren</span>
-    <ul class="nav-links">
-      <li><a onclick="showHome(); scrollToSection('about')">About</a></li>
-      <li><a onclick="showHome(); scrollToSection('projects')">Work</a></li>
-      <li><a onclick="showHome(); scrollToSection('contact')">Contact</a></li>
-    </ul>
-  </nav>
-
-  <!-- HOME -->
-  <div id="page-home" class="page active">
-
-    <section id="hero">
-      <div class="hero-line"></div>
-      <div class="hero-index">001 — Portfolio</div>
-      <h1>Ege<br><em>Evren</em></h1>
-      <p class="hero-sub">Industrial Design Student based in Istanbul —<br></p>
-      <div class="scroll-hint"></div>
-    </section>
-
-    <section id="about">
-      <div class="about-left">
-        <div class="section-label reveal"></div>
-        <p class="about-text reveal">
- <em></em>,
-        </p>
-      </div>
-      <div class="about-right reveal">
-        <div class="about-details">
-          <div class="detail-item"><div class="detail-label">Based in</div><div class="detail-value">Istanbul, Turkey</div></div>
-          <div class="detail-item"><div class="detail-label">Education</div><div class="detail-value">Istanbul Technical University<br>Industrial Design</div></div>
-          <div class="detail-item"><div class="detail-label"></div><div class="detail-value"></div></div>
-          <div class="detail-item"><div class="detail-label">Interests</div><div class="detail-value">Product Design · Materials & Manufacturing · Mechanisms · Entrepreneurship</div></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =====================================================
-         PROJECTS — Scroll layout
-         ===================================================== -->
-    <section id="projects">
-      <div class="section-label reveal">Selected Work</div>
-
-      <!-- Project 1 -->
-      <div class="scroll-project reveal" onclick="showProject(0)">
-        <div class="scroll-project-meta">
-          <span class="scroll-project-number">001</span>
-          <div class="scroll-project-title"><br><em></em></div>
-          <div class="scroll-project-tags">
-            <span class="scroll-project-tag">Product</span>
-            <span class="scroll-project-tag">Concept</span>
-          </div>
-        </div>
-        <div class="scroll-project-image-wrap">
-          <!--<img
-            src="https://pub-dafa3748d0864c9da27ff35ac5bb967b.r2.dev/tasulye-cover-image.jpg"
-            alt="Tableware for Turkish Cousine"
-            class="scroll-project-image"
-          />-->
-        </div>
-        <div class="scroll-project-year">2026</div>
-      </div>
-
-      
-    </section>
-
-    <section id="contact">
-      <div class="section-label reveal">Contact</div>
-      <h2 class="contact-heading reveal"><br><em></em></h2>
-      <div class="contact-links reveal">
-        <a href="mailto:ege@egeevren.com" class="contact-link">
-          <span class="contact-link-label">Email</span>
-          <span class="contact-link-value">ege@egeevren.com</span>
-        </a>
-        <a href="https://www.linkedin.com/in/ege-evren/" target="_blank" class="contact-link">
-          <span class="contact-link-label">LinkedIn</span>
-          <span class="contact-link-value">linkedin.com/in/ege-evren</span>
-        </a>
-      </div>
-    </section>
-
-    <footer>
-      <span class="footer-copy">© 2026 Ege Evren</span>
-      <span class="footer-copy">Istanbul, Turkey</span>
-    </footer>
-
-  </div>
-
-  <!-- PROJECT DETAIL -->
-  <!--<div id="page-project" class="page">
-    <button class="project-detail-back" onclick="showHome()">Back to Work</button>
-    <div class="project-detail-header">
-      <div>
-        <div class="project-detail-number" id="detail-number">001</div>
-        <h2 class="project-detail-title" id="detail-title">Project 1</h2>
-      </div>
-      <div class="project-detail-meta" id="detail-meta"></div>
-    </div>
-    <div id="detail-hero" class="project-detail-hero-placeholder">[ Add hero image here ]</div>
-    <div class="project-detail-body">
-      <div class="project-detail-desc" id="detail-desc"></div>
-      <div class="project-detail-gallery" id="detail-gallery"></div>
-    </div>
-  </div>-->
-
-  <!--<script>
-    // ===== EDIT YOUR PROJECTS HERE =====
-    const projects = [
-      {
-        number: '001',
-        title: 'Tableware for Turkish <em>Cousine</em>',
-        year: '2026',
-        category: 'Product Design',
-        material: 'Ceramic',
-        desc: '<p>A short description of the project.</p><p>Talk about your process — materials, research, prototypes, iterations.</p>',
-        heroImg: null,
-        galleryImgs: [null, null]
-      },
-      {
-        number: '002',
-        title: 'Stray Cat <em>Carrier</em>',
-        year: '2025',
-        category: 'Product Design',
-        material: 'Corrugated Cardboard',
-        desc: '<p>There are many stray cats in the streets of Istanbul. This project solves the need for a disposable cat carrier for injured stray cats.</p><p>Design Statement: This cat carrier has a conical form that invites the cat. The box lid pushes the cat inside and locks the box. The form allows holding from different directions, keeping the cat stable and secure inside.</p>',
-        heroImg: null,
-        galleryImgs: [null, null]
-      },
-      {
-        number: '003',
-        title: 'Project <em>3</em>',
-        year: '2023',
-        category: 'Packaging',
-        material: 'Add material here',
-        desc: '<p>A detailed description of Project 3.</p><p>Talk about your process.</p>',
-        heroImg: null,
-        galleryImgs: [null, null]
-      },
-      {
-        number: '004',
-        title: 'Project <em>4</em>',
-        year: '2023',
-        category: 'Furniture',
-        material: 'Add material here',
-        desc: '<p>A detailed description of Project 4.</p><p>Talk about your process.</p>',
-        heroImg: null,
-        galleryImgs: [null, null]
-      },
-      {
-        number: '005',
-        title: 'Project <em>5</em>',
-        year: '2023',
-        category: 'Concept',
-        material: 'Add material here',
-        desc: '<p>A detailed description of Project 5.</p><p>Talk about your process.</p>',
-        heroImg: null,
-        galleryImgs: [null, null]
-      }
-    ];
-    // ===================================
-
-    function showHome() {
-      document.getElementById('page-home').classList.add('active');
-      document.getElementById('page-project').classList.remove('active');
-      window.scrollTo(0, 0);
-      initReveal();
-    }
-
-    function showProject(index) {
-      const p = projects[index];
-      document.getElementById('page-home').classList.remove('active');
-      document.getElementById('page-project').classList.add('active');
-      window.scrollTo(0, 0);
-
-      document.getElementById('detail-number').textContent = p.number;
-      document.getElementById('detail-title').innerHTML = p.title;
-      document.getElementById('detail-desc').innerHTML = p.desc;
-
-      document.getElementById('detail-meta').innerHTML = `
-        <div class="detail-item"><div class="detail-label">Year</div><div class="detail-value">${p.year}</div></div>
-        <div class="detail-item"><div class="detail-label">Category</div><div class="detail-value">${p.category}</div></div>
-        <div class="detail-item"><div class="detail-label">Material</div><div class="detail-value">${p.material}</div></div>
-      `;
-
-      const heroEl = document.getElementById('detail-hero');
-      if (p.heroImg) {
-        heroEl.outerHTML = `<img src="${p.heroImg}" class="project-detail-hero-img" id="detail-hero" alt="" />`;
-      } else {
-        heroEl.className = 'project-detail-hero-placeholder';
-        heroEl.textContent = '[ Add hero image here ]';
-      }
-
-      document.getElementById('detail-gallery').innerHTML = p.galleryImgs.map(img =>
-        img
-          ? `<img src="${img}" class="project-detail-gallery-img" alt="" />`
-          : `<div class="project-detail-gallery-placeholder">[ Add image here ]</div>`
-      ).join('');
-    }
-
-    function scrollToSection(id) {
-      setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }), 50);
-    }
-
-    function initReveal() {
-      const reveals = document.querySelectorAll('.reveal');
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach((entry, i) => {
-          if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        });
-      }, { threshold: 0.1 });
-      reveals.forEach(el => { el.classList.remove('visible'); observer.observe(el); });
-    }
-
-    initReveal();
-
-    window.addEventListener('scroll', () => {
-      document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 50);
-    });
-  </script>-->
+<nav>
+  <a class="nav-logo" href="/">Ege Evren</a>
+  <ul class="nav-links">
+    <li><a href="/#about">About</a></li>
+    <li><a href="/#projects">Work</a></li>
+    <li><a href="/takip" aria-current="page">3D Baskı</a></li>
+    <li><a href="/#contact">Contact</a></li>
+  </ul>
+</nav>
+<main>
+  <p class="kicker">3D baskı hizmeti</p>
+  <h1>Sipariş<br>takibi</h1>
+  <p class="lede">Sana verilen müşteri kodunu gir; siparişlerinin durumunu, fiyatlarını ve ödemelerini gör.</p>
+ 
+  <form id="f" autocomplete="off">
+    <label for="code">Müşteri kodu</label>
+    <input id="code" name="code" placeholder="Örn. ABC-1234" required maxlength="20" spellcheck="false">
+    <button id="go" type="submit">Siparişleri göster</button>
+  </form>
+ 
+  <section id="out" aria-live="polite"></section>
+  <p class="foot">Yeni sipariş ya da soru için: <a href="mailto:siparis@egeevren.com">siparis@egeevren.com</a></p>
+</main>
+<footer><span>© 2026 Ege Evren</span><span>Istanbul, Turkey</span></footer>
+ 
+<script>
+const API_URL = "PASTE_YOUR_APPS_SCRIPT_URL_HERE";
+ 
+const STEPS = ["Alındı","Basılıyor","Hazır","Teslim edildi"];
+const tl = n => (n ?? 0).toLocaleString("tr-TR",{maximumFractionDigits:0}) + " TL";
+const esc = s => String(s ?? "").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const out = document.getElementById("out"), input = document.getElementById("code"), btn = document.getElementById("go");
+ 
+function hours(h){ if(h==null) return ""; const H=Math.floor(h), M=Math.round((h-H)*60); return M?`${H} sa ${M} dk`:`${H} sa`; }
+ 
+function render(d){
+  const totals = [];
+  if (d.prepaid) totals.push(`<div><span>Ön ödeme</span><b>${tl(d.prepaid)}</b></div>`,
+                             `<div class="good"><span>Kalan bakiye</span><b>${tl(d.prepaidBalance)}</b></div>`);
+  totals.push(`<div><span>Toplam sipariş</span><b>${tl(d.total)}</b></div>`);
+  totals.push(d.owes > 0 ? `<div class="due"><span>Ödenecek</span><b>${tl(d.owes)}</b></div>`
+                         : `<div class="good"><span>Ödenecek</span><b>0 TL</b></div>`);
+ 
+  const list = d.orders.map(o=>{
+    const step = Math.max(0, STEPS.indexOf(o.status));
+    const layers = STEPS.map((_,i)=>`<i class="${i<=step?"on":""}"></i>`).join("");
+    const meta = [o.date, o.material, o.grams?`${o.grams} g`:"", hours(o.hours)].filter(Boolean).join(", ");
+    const due = o.remaining > 0 ? `<small class="due">${tl(o.remaining)} kaldı</small>` : `<small>ödendi</small>`;
+    return `<li class="order">
+      <div class="layers ${step===3?"done":""}" aria-hidden="true">${layers}</div>
+      <h2>Sipariş ${esc(o.no)}<span class="status">${esc(o.status||"Alındı")}</span></h2>
+      <div class="price"><b>${o.price?tl(o.price):"Ücretsiz"}</b>${o.price?due:""}</div>
+      <div class="meta">${esc(meta)}</div>
+      ${o.note?`<div class="note">${esc(o.note)}</div>`:""}
+    </li>`;
+  }).join("");
+ 
+  out.innerHTML = `<p class="hello">Merhaba ${esc(d.customer)}</p>
+    <div class="totals">${totals.join("")}</div>
+    ${d.orders.length?`<ol class="orders">${list}</ol>`:`<p class="msg">Henüz sipariş yok.</p>`}
+    <p class="foot">Son güncelleme: ${esc(d.updated)}</p>`;
+}
+ 
+async function lookup(code){
+  btn.disabled = true; out.innerHTML = `<p class="msg">Siparişler yükleniyor…</p>`;
+  try{
+    const r = await fetch(`${API_URL}?code=${encodeURIComponent(code)}`);
+    const d = await r.json();
+    if (d.ok) render(d);
+    else out.innerHTML = `<p class="msg err">Bu kodla bir müşteri bulunamadı. Kodu kontrol edip tekrar dene.</p>`;
+  }catch(e){
+    out.innerHTML = `<p class="msg err">Siparişler şu an yüklenemedi. Birkaç dakika sonra tekrar dene.</p>`;
+  }finally{ btn.disabled = false; }
+}
+ 
+document.getElementById("f").addEventListener("submit", e=>{
+  e.preventDefault();
+  const code = input.value.trim().toUpperCase();
+  if(!code) return;
+  history.replaceState(null,"",`?code=${encodeURIComponent(code)}`);
+  lookup(code);
+});
+ 
+const pre = new URLSearchParams(location.search).get("code");
+if (pre){ input.value = pre.toUpperCase(); lookup(input.value); }
+</script>
 </body>
 </html>
+ 
